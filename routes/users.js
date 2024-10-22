@@ -9,7 +9,7 @@ const timeframeConfigs = {
     startOf: startOfDay,
     increment: addDays,
     isSame: isSameDay,
-    format: "dd MMM",
+    format: "EE dd MMM",
     count: 1,
   },
   week: {

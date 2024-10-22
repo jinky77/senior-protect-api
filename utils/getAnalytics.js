@@ -1,4 +1,4 @@
-const { addDays, format, isWithinInterval, endOfWeek } = require("date-fns");
+const { addDays, format, isWithinInterval, startOfToday, isSameDay } = require("date-fns");
 const { fr } = require("date-fns/locale");
 
 const capitalizeFirstLetter = (string) => {
@@ -8,6 +8,23 @@ const capitalizeFirstLetter = (string) => {
 const getAnalytics = (data, config, timeframe) => {
   const { startOf, increment, format: formatStr, count } = config;
   const start = startOf(new Date());
+  const today = startOfToday();
+
+  const isCurrentPeriod = (periodStart, periodEnd, timeframe) => {
+    switch (timeframe) {
+      case "day":
+        return isSameDay(periodStart, today);
+      case "week":
+      case "month":
+      case "year":
+        return isWithinInterval(today, {
+          start: periodStart,
+          end: addDays(periodEnd, -1), // Subtract one day since periodEnd is start of next period
+        });
+      default:
+        return false;
+    }
+  };
 
   return Array.from({ length: count }, (_, i) => {
     const periodStart = increment(start, i);
@@ -39,6 +56,7 @@ const getAnalytics = (data, config, timeframe) => {
       label: format(periodStart, formatStr, { locale: fr }),
       formattedLabel,
       value,
+      frontColor: isCurrentPeriod(periodStart, periodEnd, timeframe) ? "#4E2A84" : "#000",
     };
   });
 };
