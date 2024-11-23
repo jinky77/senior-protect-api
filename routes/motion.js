@@ -22,7 +22,7 @@ router.post("/registerPushToken", async (req, res) => {
 // POST ** /api/v1/motion/start - Send notification & register new event in Firebase
 // See https://github.com/expo/expo-server-sdk-node for details
 router.post("/start", async (_, res) => {
-  const userId = "0000001";
+  const userId = "0000002";
   try {
     const { token } = await getToken(userId);
 
@@ -35,7 +35,7 @@ router.post("/start", async (_, res) => {
         to: token,
         sound: "default",
         title: "Senior Protect",
-        body: "Mémé a besoin d'aide !",
+        body: "Votre aîné a besoin d'aide !",
       },
     ];
 
@@ -61,7 +61,7 @@ router.post("/start", async (_, res) => {
 
 // POST ** /api/v1/motion/stop - Add endTime to latest event in Firebase
 router.post("/stop", async (_, res) => {
-  const userId = "0000001";
+  const userId = "0000002";
   try {
     await saveEndTime(userId);
     res.status(200).send({ message: "Fin d'événement enregistré avec succès." });

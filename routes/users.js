@@ -40,7 +40,7 @@ const timeframeConfigs = {
 router.get("/getAllAnalytics", async (req, res) => {
   try {
     // To-Do: Replace "0000001" with actual user ID retrieval logic
-    const userId = "0000001";
+    const userId = "0000002";
     const data = await fetchUserData(userId);
 
     const allAnalytics = {};
@@ -60,7 +60,7 @@ router.get("/getAllAnalytics", async (req, res) => {
 router.get("/getUserData/:timeframe", async (req, res) => {
   const { timeframe } = req.params;
   // To-Do: au lieu de userId = "0000001", faire : const { userId } = req.params;
-  const userId = "0000001";
+  const userId = "0000002";
   const data = await fetchUserData(userId);
 
   const config = timeframeConfigs[timeframe];

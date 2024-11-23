@@ -38,8 +38,8 @@ router.get("/", async (_, res) => {
                 directory: directory,
                 creationDate: birthTime,
                 size: size,
-                path: `${BASE_URL}/${directory}/${file}`,
-                thumbnail: `${BASE_URL}/${directory}/${file}.thumb`,
+                path: `${BASE_URL}/${directory}/${name}.mp4`,
+                thumbnail: `${BASE_URL}/${directory}/${name}.png`,
               };
             })
           );
@@ -70,11 +70,11 @@ router.get("/", async (_, res) => {
   }
 });
 
-// DELETE ** /api/v1/recordings/delete/:directory/:filename - Delete specified file 
+// DELETE ** /api/v1/recordings/delete/:directory/:filename - Delete specified file
 router.delete("/delete/:directory/:filename", async (req, res) => {
   const { directory, filename } = req.params;
   const videoPath = `${RECORDINGS_PATH}/${directory}/${filename}.mp4`;
-  const thumbnailPath = `${RECORDINGS_PATH}/${directory}/${filename}.mp4.thumb`;
+  const thumbnailPath = `${RECORDINGS_PATH}/${directory}/${filename}.png`;
 
   try {
     await fs.promises.unlink(videoPath);
